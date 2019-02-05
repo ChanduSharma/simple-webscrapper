@@ -1,0 +1,1477 @@
+<html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script language="javascript" type="text/javascript">
+    function expand(id, linkId) {
+        obj = document.getElementById(id);
+        link = document.getElementById(linkId);
+        if (obj.style.display == "none") {
+            obj.style.display = "block";
+            link.innerHTML = "-";
+        } else {
+            obj.style.display = "none";
+            link.innerHTML = "+";
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <div style='font-family: Verdana, Arial, Helvetica, sans-serif'>
+<style>
+body, div, td, th{
+	font-size: 11;
+}
+
+.reports_linkBarTop {
+	background-color: #212121;
+	margin: 10px 10px 0 10px;
+	padding: 3px;
+	cursor: pointer;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+ 	border:1px solid #000;
+	border-bottom:1px solid #808080;
+ 	background-image: url(../Images/primary_button_background.gif);
+}
+
+.reports_linkBar {
+	background-color: #212121;
+	margin: 0 10px 0 10px;
+	padding: 3px;
+	cursor: pointer;
+    /*-moz-border-radius: 10px;*/
+ 	border:1px solid #000;
+	border-bottom:1px solid #808080;
+ 	background-image: url(../Images/primary_button_background.gif);
+}
+
+.reports_linkBarBottom {
+	background-color: #212121;
+	margin: 0 10px 0 10px;
+	padding: 3px;
+    /*-moz-border-radius: 10px;*/
+ 	border:1px solid #000;
+}
+
+.reports_linkBarTop table,
+.reports_linkBar table,
+.reports_linkBarBottom table {
+	color: b8d1e6;
+}
+
+.reports_linkBarTop table:hover,
+.reports_linkBar table:hover,
+.reports_linkBarBottom table:hover {
+	color: fff;
+}
+
+.reports_linkBarTop table span.description,
+.reports_linkBar table span.description,
+.reports_linkBarBottom table span.description {
+	font-size:12px;
+}
+
+#reports_CreateReportDialog .dijitInputFieldFocused input,
+#reports_CreateReportDialog .dijitTextBoxFocused,
+#reports_CreateReportDialog .dijitComboBoxFocused,
+#reports_CreateReportDialog .dijitSpinnerFocused {
+	border-color: #000;
+}
+
+#reports_CustomizeReportHeaderDialog .inputHeader {
+	display:block;
+}
+
+#reports_CustomizeReportHeaderDialogContent {
+	margin: 1em 5em 1em 1em;
+}
+
+#reports_CustomizeReportHeaderDialog textarea,
+#reports_CustomizeReportHeaderDialog input {
+	width:400px;
+}
+
+#reports_CustomizeReportHeaderDialog .inputHeader {
+	color:#e6d4b8;
+	font-size:1.2em;
+	font-weight:bold;
+	margin: 0.7em 0 0.2em 0;
+}
+
+#report_outputPreviewinfoHeader 
+#report_outputPreviewinfoSysinfo 
+#report_outputPreviewinfoTestinfo
+#report_outputPreviewinfoDiffinfo {
+	margin: 20px 5px 20px 5px;
+	float:left;
+	width:98%;
+	-moz-user-select: none;
+}
+
+#report_outputPreviewinfoSysinfoHeader 
+#report_outputPreviewinfoTestinfoHeader
+#report_outputPreviewinfoDiffinfoHeader {
+	clear:both;
+	font-size:1.4em;
+	font-weight:bold;
+	margin: 20px 0 20px 0;
+	float:left;
+	width:98%;
+	-moz-user-select: none;
+}
+
+#report_outputPreviewinfoSysinfoHeader hr 
+#report_outputPreviewinfoTestinfoHeader hr 
+#report_outputPreviewinfoDiffinfoHeader hr {
+	height:5px;
+	width:100%;
+	border-top:dashed 1px #666666;
+	border-bottom:solid 1px #666666;
+	border-left:none;
+	border-right:none;
+	-moz-user-select: none;
+}
+
+/* Preview pane styles */
+#report_outputHeader,
+#report_outputSysinfo,
+#report_outputTestinfo,
+#report_outputDiffinfo,
+#report_outputPreviewinfo {
+	background-color:#fff;
+	color:#000;
+	-moz-user-select: none;
+}
+
+/* Header styles */
+#report_outputHeader .report_outputHeader_companyLogo,
+#reports_PreviewPane .report_outputHeader_companyLogo {
+}
+
+#report_outputHeader .report_outputHeader_companyName,
+#reports_PreviewPane .report_outputHeader_companyName {
+	font-size:1.6em;
+	font-weight:bold;
+	margin-bottom:-1px;
+	-moz-user-select: none;
+}
+
+#report_outputHeader .report_outputHeader_companyAddress,
+#reports_PreviewPane .report_outputHeader_companyAddress {
+	float:left;
+}
+
+#report_outputHeader .report_outputHeader_technicianName,
+#reports_PreviewPane .report_outputHeader_technicianName {
+	margin-top:10px;
+	font-weight:bold;
+	float:right;
+}
+
+/* Sysinfo styles */
+#reports_SysinfoPane .sysinfoTable, 
+#reports_SysinfoPane .sysinfoTable table,
+#reports_PreviewPane .sysinfoTable, 
+#reports_PreviewPane .sysinfoTable table {
+	width: 100%;
+	border-spacing: 0px 2px;
+	-moz-user-select: none;
+}
+#reports_SysinfoPane .sysinfoTable td,
+#reports_PreviewPane .sysinfoTable td {
+	padding:2px 0 2px 5px;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTableCategoryHeader,
+#reports_PreviewPane .sysinfoTable .sysinfoTableCategoryHeader {
+	font-weight: bold;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTableDeviceHeader,
+#reports_PreviewPane .sysinfoTable .sysinfoTableDeviceHeader {
+	font-weight: bold;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyEven,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyEven {
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyOdd,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyOdd {
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyKey,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyKey {
+	font-weight: bold;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyValue,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyValue {
+}
+
+#reports_SysinfoPane .sysinfoTable .sysinfoTableCategoryHeader,
+#reports_PreviewPane .sysinfoTable .sysinfoTableCategoryHeader {
+	background-color: #def;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTableDeviceHeader,
+#reports_PreviewPane .sysinfoTable .sysinfoTableDeviceHeader {
+	background-color: #fec;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyEven,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyEven {
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyOdd,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyOdd {
+	background-color: #eee;
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyKey,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyKey {
+}
+#reports_SysinfoPane .sysinfoTable .sysinfoTablePropertyValue,
+#reports_PreviewPane .sysinfoTable .sysinfoTablePropertyValue {
+}
+
+
+/* Test result styles */
+
+#reports_TestsPane .report_tests_results_box,
+#reports_PreviewPane .report_tests_results_box {
+	clear:both;
+	margin-bottom: 15px;
+}
+#reports_TestsPane .report_tests_results_box_header,
+#reports_PreviewPane .report_tests_results_box_header {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #000;
+	padding: 3px;
+	background-color: #d9d9d9;
+	margin: 2px 5px 2px 0;
+}
+#reports_TestsPane .report_tests_result_title,
+#reports_PreviewPane .report_tests_result_title {
+}
+#reports_TestsPane .report_tests_wrapper,
+#reports_PreviewPane .report_tests_wrapper {
+}
+#reports_TestsPane .report_test_result_row,
+#reports_PreviewPane .report_test_result_row {
+	clear:both;
+}
+#reports_TestsPane .report_test_result_row_alt,
+#reports_PreviewPane .report_test_result_row_alt {
+	clear:both;
+	background-color: #eee;
+}
+#reports_TestsPane .report_test_result_test_name,
+#reports_PreviewPane .report_test_result_test_name {
+	background-color: #efefef;
+	border: 1px solid #666;
+}
+#reports_TestsPane .report_test_result_row_left,
+#reports_PreviewPane .report_test_result_row_left {
+	clear: left;
+	float: left;
+	width: 160px;
+}
+#reports_TestsPane .report_test_result_row_center,
+#reports_PreviewPane .report_test_result_row_center {
+	float: left;
+}
+#reports_TestsPane .report_test_result_row_right,
+#reports_PreviewPane .report_test_result_row_right {
+	float: right;
+}
+
+#reports_ClearLogoButton,
+#reports_CreateReport_Save,
+#reports_CreateReport_Print {
+	background:none;
+	border:none;
+	padding:0;
+	margin:0;
+	cursor:pointer;
+}
+
+#reports_CreateReport_Save,
+#reports_CreateReport_Print {
+	margin-left:0px;
+}
+
+#reports_CreateReportDialog_TabContainer {
+	background-image:url(../Images/tab_background.gif);
+	background-repeat:repeat-x;
+	background-color:#000;
+	border:solid 1px #000;
+	width:702px;
+	height:450px;
+}
+
+#reports_HeaderPane,
+#reports_SysinfoPane,
+#reports_TestsPane,
+#reports_DiffPane,
+#reports_PreviewPane {
+	background-color:#fff;
+	margin:10px;
+}
+
+#reports_includeHeader_Container {
+	border-bottom:solid 1px #000;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+
+.reports_scrollingDiv {
+	overflow:auto;
+	width:100%;
+	height:90%;
+}
+
+.reports_scrollingDiffDiv {
+	overflow:auto;
+	width:100%;
+	height:60%;
+}
+
+.report_testresult_table {
+	width:100%;
+}
+.report_testresult_devicename {
+	padding: 20px 0px 10px 0px;
+}
+.report_testresult_testname {
+	padding: 10px 0px 0px 0px;
+	background-color:#def;
+}
+.report_testresult_testresult {
+	padding: 10px 0px 0px 0px;
+	background-color:#def;
+}
+.report_testresult_eventtype {
+}
+.report_testresult_eventdata {
+}
+.report_testresult_eventtime {
+	text-align:right;
+}
+.report_testresult_altrow {
+	background-color:#eee;
+}
+
+.report_testresult_USER_ABORTED {
+	color:#ff7f00;
+}
+.report_testresult_FAIL {
+	color:#f00;
+}
+.report_testresult_PASS {
+	color:#0f0;
+}
+.report_testresult_COMPLETED{
+	color:#0f0;
+}
+
+
+
+#diags_mainContentPane {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+    -moz-border-radius: 10px;
+}
+
+#diags_devicesTree {
+	padding: 5px;
+	width: 15%;
+}
+
+#diags_rightContentPane {
+	padding: 5px;
+	margin: 5px;
+}
+
+#diags_rightContentTestResultsContainer {
+	padding: 5px;
+	margin: 5px;
+}
+
+#diags_rightContentTestingContainerTop {
+	padding: 5px;
+	margin: -3px;
+}
+
+.diag_test_row
+{
+	margin: 0px;
+	padding: 2px;
+}
+
+.diag_test_result_row
+{
+	padding: 4px;
+}
+
+.diag_test_result_tip_row
+{
+	padding: 3px;
+}
+
+.diag_test_result_row_tips_frame
+{
+	padding: 5px;
+	border: solid;
+	border-color: #888;
+	border-width: 1px;
+}
+
+#diags_testResultsText {
+	padding: 5px;
+}
+
+#diags_detailedTestResultsDialog_contentPane {
+	-moz-user-select: -moz-none;
+}
+
+.test_parameters {
+ border: 1px solid #808080;
+ padding-top:5px;
+	width: 100%;
+}
+
+.test_parameters_label {
+ position:absolute;
+	top:33px;
+	left:15px;
+	background-color:#191919;
+	padding:2px;
+	color:#e6d4b8;
+	font-weight:bold;
+}
+
+span.progress_info {
+ color:#e6d4b8;
+	font-weight:bold;
+}
+
+#diags_testRunDialog_mainElapsedTime,
+#diags_testRunDialog_mainTestName,
+#diags_testRunDialog_mainPassCount {
+ color:#fff;
+}
+
+#diags_testRunDialog_mainProgressMessage {
+ color:#fff;
+ width: 400px;
+}
+
+.separator {
+ background-image:url(../Images/title_divider.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	height:1px;
+	width:100%;
+	margin:10px 0 10px 0;
+}
+
+#diags_testRunDialog_boxesPane {
+ background-color:#99aebf;
+	padding:5px;
+}
+
+.diags_device_tests_running_box {
+	padding:4px;
+}
+
+.diags_testrunning_testresulttext_PASS {
+	color: green;
+}
+
+.diags_testrunning_testresulttext_COMPLETED {
+	color: green;
+}
+
+.diags_testrunning_testresulttext_FAIL {
+	color: red;
+}
+
+.diags_testrunning_testresulttext_NONPASS { 
+	color: #ff6600; /* orange */
+}
+
+.diags_testrunning_testresulttext_USER_ABORTED {
+	color: #ff6600;
+}
+
+.diags_testrunning_messagebox {
+	text-align:left;
+}
+
+#diags_deviceInfoDialog_tabContainer {
+	background-image:url(../Images/tab_background.gif);
+	background-repeat:repeat-x;
+}
+
+#diags_deviceInfoDialog_basicContentPane,
+#diags_deviceInfoDialog_detailedContentPane,
+#diags_detailedTestResultsDialog_container,
+#diags_deviceInfoDialog_borderContainer {
+ 	color:#000;
+	background:#fff;
+	padding:5px;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_deviceTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_propertyTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable
+{
+	background-color:#fff;
+	color:#000;
+	width:100%;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_deviceTable .diags_deviceInfoDialog_detailedSysinfoPane_deviceTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_propertyTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable
+{
+	padding-left: 2em;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_deviceTable .diags_deviceInfoDialog_detailedSysinfoPane_deviceTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_propertyTable,
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable
+{
+	padding-right: 2em;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_altRow
+{
+	background-color: #eee;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_deviceTable th
+{
+	background-color: #def;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable th
+{
+	text-align:left;
+	background-color: #fda;	
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable .NONPASS
+{	
+	color: #ff6600;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable th.PASS
+{
+	background-color: #dfd;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable .PASS
+{
+	color:#060;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable th.COMPLETED
+{
+	background-color: #dfd;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable .COMPLETED
+{
+	color:#060;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable th.FAIL
+{
+	background-color: #fdd;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable .FAIL
+{
+	color:#600;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable th.USER_ABORTED 
+{
+	background-color: #fda;
+}
+.diags_deviceInfoDialog_detailedSysinfoPane_testTable .USER_ABORTED
+{
+	color:#630;
+}
+
+.diags_deviceInfoDialog_detailedSysinfoPane_propertyKey
+{
+	width:150px;
+}
+
+</style>
+<div id="reports_PreviewPane">
+
+					<div id="report_outputPreviewinfoHeader"><div class="report_outputHeader_companyName">Usedyetnew.com</div><div style="clear: both;">&nbsp;</div><div class="report_outputHeader_technicianName">Mukunda</div></div>
+					<div id="report_outputPreviewinfoHeaderClearDiv" style="clear: both;"><hr></div>
+					<div id="report_outputPreviewinfoSysinfoHeader">System Information</div>
+					<div id="report_outputPreviewinfoSysinfo"><table class="sysinfoTable">
+	
+		
+			
+				<tbody><tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Operating System</td>
+				</tr>
+			
+			
+				
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">System Name</span></td>
+						<td><span class="sysinfoTablePropertyValue">DESKTOP-5A77VR6</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Name</span></td>
+						<td><span class="sysinfoTablePropertyValue">Microsoft Windows 10 Professional (64-bit)</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Build Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">10240.17443</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Motherboard</td>
+				</tr>
+			
+			
+				
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Manufacturer</span></td>
+						<td><span class="sysinfoTablePropertyValue">LENOVO</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Product</span></td>
+						<td><span class="sysinfoTablePropertyValue">INVALID</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Serial Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">INVALID</span></td>
+					</tr>
+				
+				
+			
+		
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">BIOS</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">BIOS Version String</span></td>
+						<td><span class="sysinfoTablePropertyValue">9CCN30WW(V2.08)</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">BIOS Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">1.30</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Release Date</span></td>
+						<td><span class="sysinfoTablePropertyValue">11/26/2014</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">CPU</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Name</span></td>
+						<td><span class="sysinfoTablePropertyValue">Intel(R) Pentium(R) CPU N3540 @ 2.16GHz</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Cores</span></td>
+						<td><span class="sysinfoTablePropertyValue">4</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Threads</span></td>
+						<td><span class="sysinfoTablePropertyValue">4</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Max Qualified Speed</span></td>
+						<td><span class="sysinfoTablePropertyValue">2.16 GHz</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Memory</td>
+				</tr>
+			
+			
+				
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Total Physical Memory</span></td>
+						<td><span class="sysinfoTablePropertyValue">4.00 GB</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Maximum Supported Memory</span></td>
+						<td><span class="sysinfoTablePropertyValue">8.00 GB</span></td>
+					</tr>
+				
+				
+			
+		
+			
+			
+				
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Total Number of Memory Modules</span></td>
+						<td><span class="sysinfoTablePropertyValue">1</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Total Number of DIMM slots</span></td>
+						<td><span class="sysinfoTablePropertyValue">2</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Disk Drives</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">ST500LT012-1DG142 ATA Device</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Vendor</span></td>
+						<td><span class="sysinfoTablePropertyValue">Seagate</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Model Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">ST500LT012-1DG142</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Serial Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">W3PL09LJ</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Firmware Revision</span></td>
+						<td><span class="sysinfoTablePropertyValue">0002LVM1</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Size</span></td>
+						<td><span class="sysinfoTablePropertyValue">465.8 GB</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Marketed Size</span></td>
+						<td><span class="sysinfoTablePropertyValue">500 GB</span></td>
+					</tr>
+				
+				
+			
+				
+				
+				
+					
+						
+							
+								<tr class="sysinfoTableDeviceHeader">
+									<td>
+									</td><td colspan="3">C:</td>
+								</tr>
+							
+						
+						<tr class="sysinfoTablePropertyEven">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Drive Letter</span></td>
+							<td><span class="sysinfoTablePropertyValue">C</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyOdd">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Capacity</span></td>
+							<td><span class="sysinfoTablePropertyValue">250.43 GB</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyEven">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Free Space</span></td>
+							<td><span class="sysinfoTablePropertyValue">230.95 GB</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyOdd">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Used Space</span></td>
+							<td><span class="sysinfoTablePropertyValue">19.48 GB</span></td>
+						</tr>
+					
+				
+			
+				
+				
+				
+					
+						
+							
+								<tr class="sysinfoTableDeviceHeader">
+									<td>
+									</td><td colspan="3">D:</td>
+								</tr>
+							
+						
+						<tr class="sysinfoTablePropertyEven">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Drive Letter</span></td>
+							<td><span class="sysinfoTablePropertyValue">D</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyOdd">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Capacity</span></td>
+							<td><span class="sysinfoTablePropertyValue">214.84 GB</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyEven">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Free Space</span></td>
+							<td><span class="sysinfoTablePropertyValue">214.72 GB</span></td>
+						</tr>
+					
+						
+						<tr class="sysinfoTablePropertyOdd">
+							<td>
+							</td><td>
+							</td><td><span class="sysinfoTablePropertyKey">Volume Used Space</span></td>
+							<td><span class="sysinfoTablePropertyValue">123.56 MB</span></td>
+						</tr>
+					
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Optical Drives</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">HL-DT-ST DVDRAM GUC0N ATA Device</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Vendor</span></td>
+						<td><span class="sysinfoTablePropertyValue">Hitachi-LG Data Storage</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Model Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">HL-DT-ST DVDRAM GUC0N</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Drive Serial Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">KWFF4T61821</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Firmware Revision</span></td>
+						<td><span class="sysinfoTablePropertyValue">T.02</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Drive Letter</span></td>
+						<td><span class="sysinfoTablePropertyValue">E</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Batteries</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Microsoft ACPI-Compliant Control Method Battery</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Battery Name</span></td>
+						<td><span class="sysinfoTablePropertyValue">PABAS0241231</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Manufacturer Name</span></td>
+						<td><span class="sysinfoTablePropertyValue">SANYO</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Battery Serial Number</span></td>
+						<td><span class="sysinfoTablePropertyValue">495</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Designed Capacity Percentage</span></td>
+						<td><span class="sysinfoTablePropertyValue">56</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Current Charge Percentage</span></td>
+						<td><span class="sysinfoTablePropertyValue">22</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Video Controllers</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Intel(R) HD Graphics</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Video Card Memory</span></td>
+						<td><span class="sysinfoTablePropertyValue">2.01 GB</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">10.18.10.4276, 8-17-2015</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Displays</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Generic PnP Monitor</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Mode</span></td>
+						<td><span class="sysinfoTablePropertyValue">1366 x 768 (32-bit) (60 Hz)</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Network Cards</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Realtek PCIe GBE Family Controller</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">MAC Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">1c:39:47:c5:58:37</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">IP Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">0.0.0.0</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Gateway IP Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">0.0.0.0</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">10.1.505.2015, 5-5-2015</span></td>
+					</tr>
+				
+				
+			
+		
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Qualcomm Atheros AR956x Wireless Network Adapter</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">MAC Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">b8:86:87:4e:df:ef</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">IP Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">192.168.1.119</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Gateway IP Address</span></td>
+						<td><span class="sysinfoTablePropertyValue">192.168.1.1</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Current Speed</span></td>
+						<td><span class="sysinfoTablePropertyValue">72.20 Mbps</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">3.0.2.182, 6-22-2006</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Audio Controllers</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Realtek High Definition Audio</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">6.0.1.7592, 8-25-2015</span></td>
+					</tr>
+				
+				
+			
+		
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Intel(R) Display Audio</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">6.16.0.3154, 9-9-2014</span></td>
+					</tr>
+				
+				
+			
+		
+	
+		
+			
+				<tr class="sysinfoTableCategoryHeader">
+					<td colspan="4">Default Printer</td>
+				</tr>
+			
+			
+				
+					
+						<tr class="sysinfoTableDeviceHeader">
+							<td>
+							</td><td colspan="3">Microsoft Print To PDF</td>
+						</tr>
+					
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Model</span></td>
+						<td><span class="sysinfoTablePropertyValue">Microsoft Print To PDF</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyOdd">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Path</span></td>
+						<td><span class="sysinfoTablePropertyValue">Microsoft Print to PDF</span></td>
+					</tr>
+				
+				
+			
+				
+				
+					<tr class="sysinfoTablePropertyEven">
+						<td>
+						</td><td>
+						</td><td><span class="sysinfoTablePropertyKey">Driver Version</span></td>
+						<td><span class="sysinfoTablePropertyValue">10.0.10240.16384</span></td>
+					</tr>
+				
+				
+			
+		
+	
+</tbody></table>
+</div>
+					<div id="report_outputPreviewinfoSysinfoClearDiv" style="clear: both;"><hr></div>
+					<div id="report_outputPreviewinfoTestinfoHeader">Diagnostics and Tools</div>
+					<div id="report_outputPreviewinfoTestinfo"><!--||SystemName||DESKTOP-5A77VR6||OSName||Microsoft Windows 10 Professional (64-bit)||ServicePack||||BuildNumber||10240.17443|| SystemDefaultLocale||0409||UserDefaultLocale||0409||-->System Serial Number: INVALID<br>Name: Microsoft Windows 10 Professional (64-bit)<br>Build Number: 10240.17443<br>DirectX Version: 12.0<br><br>Test Date: 2018-11-23<br>Test started: 2018-11-23 09:38:50<br>Test finished: 2018-11-23 10:16:47<br><br>Completed Passes: 1 of 1<br><br>Result: <span class="diags_testrunning_testresulttext_PASS"><b>Passed<b></b></b></span><b><b><br><br></b></b>Test Descriptions and Results:<br><br><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Cores</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">4</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Threads</td><td>4</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Signature</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">30678h</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Family</td><td>6h</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Model</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">37h</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Technology</td><td>22 nm</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Max Qualified Speed</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">2.16 GHz</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Current Speed</td><td>2.17 GHz</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Features</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">MMX, PSE36, EM64T, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, XD, VMX, IDA</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">L1 Instruction Cache</td><td>4 x 32.00 kB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">L1 Data Cache</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">4 x 24.00 kB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">L2 Cache</td><td>2 x 1.00 MB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Core : 0</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Temperature</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">39 C</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Threads</td><td>1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Core : 1</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Temperature</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">39 C</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Threads</td><td>1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Core : 2</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Temperature</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">39 C</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Threads</td><td>1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Core : 3</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Temperature</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">39 C</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Threads</td><td>1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_RegisterTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Register Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_RegisterTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:38:50</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:38:54</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_CacheTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Level 2 Cache Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_CacheTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:38:54</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:18</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_MathRegisterTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Math Register Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MathRegisterTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:18</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:19</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_MMXTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">MMX Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_MMXTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:19</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:21</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSETest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSE Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSETestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:21</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:22</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSE2Test||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2Test', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSE2 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2Test"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2TestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE2TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:22</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:23</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSE3Test||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3Test', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSE3 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3Test"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3TestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE3TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:23</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:25</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSSE3Test||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3Test', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSSE3 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3Test"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3TestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSSE3TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:25</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:26</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSE4_1Test||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1Test', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSE4.1 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1Test"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1TestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_1TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:26</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:27</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_SSE4_2Test||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2Test', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SSE4.2 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2Test"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2TestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_SSE4_2TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:27</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:28</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_PrimeNumberGenerationTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Prime Number Generation Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_PrimeNumberGenerationTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:28</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:31</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_FloatingPointUnitTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Floating Point Unit Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_FloatingPointUnitTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:31</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:39:51</td></tr></tbody></table></span><div><!--||START_DEVICE||CPU||Intel(R) Pentium(R) CPU N3540 @ 2.16GHz (CPU:0)||--><!--||START_TEST||pcdrcpu_StressTest||PASS||--></div><a id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTest', 'testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Stress Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTest"><a id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTestPASS', 'testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CPU_0_0_0____000000000000000Fhpcdrcpu_StressTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:39:51</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:41:54</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>System Memory</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Total Physical Memory</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">4.00 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>4096 MB DDR3 (1333 MHz)</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Memory Size</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">4.00 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Memory Manufacturer</td><td>17</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Memory Part Number</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">HMT451S6BFR8A-PB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Memory Serial Number</td><td>00372421</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_AdvancedPatternTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_AdvancedPatternTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_AdvancedPatternTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_AdvancedPatternTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Advanced Pattern Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_AdvancedPatternTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_AdvancedPatternTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_AdvancedPatternTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_AdvancedPatternTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_AdvancedPatternTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:41:54</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:49:19</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_BitLowTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_BitLowTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_BitLowTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_BitLowTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Bit Low Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_BitLowTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_BitLowTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_BitLowTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_BitLowTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_BitLowTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:49:19</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:49:42</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_BitHighTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_BitHighTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_BitHighTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_BitHighTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Bit High Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_BitHighTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_BitHighTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_BitHighTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_BitHighTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_BitHighTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:49:42</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:50:04</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_NibbleMoveTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_NibbleMoveTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_NibbleMoveTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_NibbleMoveTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Nibble Move Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_NibbleMoveTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_NibbleMoveTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_NibbleMoveTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_NibbleMoveTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_NibbleMoveTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:50:05</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:50:33</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_CheckerboardTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_CheckerboardTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_CheckerboardTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_CheckerboardTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Checkerboard Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_CheckerboardTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_CheckerboardTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_CheckerboardTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_CheckerboardTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_CheckerboardTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:50:33</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:51:02</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_WalkingOnesLeftTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Walking Ones Left Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesLeftTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:51:02</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:51:55</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_WalkingOnesRightTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Walking Ones Right Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_WalkingOnesRightTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:51:55</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:52:48</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_AuxiliaryPatternTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Auxiliary Pattern Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_AuxiliaryPatternTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:52:48</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:53:28</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_AddressTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_AddressTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_AddressTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_AddressTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Address Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_AddressTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_AddressTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_AddressTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_AddressTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_AddressTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:53:29</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:53:53</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_Modulo20Test||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_Modulo20Test_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_Modulo20Test', 'testEventContents_MEMSystem_Memorypcdrmemory2_Modulo20Test_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Modulo20 Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_Modulo20Test"><a id="testTable_MEMSystem_Memorypcdrmemory2_Modulo20TestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_Modulo20TestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_Modulo20TestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_Modulo20TestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:53:54</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:55:45</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_MovingInversionTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_MovingInversionTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_MovingInversionTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_MovingInversionTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Moving Inversion Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_MovingInversionTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_MovingInversionTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_MovingInversionTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_MovingInversionTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_MovingInversionTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:55:46</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:58:56</td></tr></tbody></table></span><div><!--||START_DEVICE||Memory||System Memory||--><!--||START_TEST||pcdrmemory2_WindowsMemoryTest||PASS||--></div><a id="testEventContents_MEMSystem_Memorypcdrmemory2_WindowsMemoryTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_MEMSystem_Memorypcdrmemory2_WindowsMemoryTest', 'testEventContents_MEMSystem_Memorypcdrmemory2_WindowsMemoryTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Windows Memory Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_MEMSystem_Memorypcdrmemory2_WindowsMemoryTest"><a id="testTable_MEMSystem_Memorypcdrmemory2_WindowsMemoryTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_MEMSystem_Memorypcdrmemory2_WindowsMemoryTestPASS', 'testTable_MEMSystem_Memorypcdrmemory2_WindowsMemoryTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_MEMSystem_Memorypcdrmemory2_WindowsMemoryTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:58:57</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Informative Message</td><td width="25%">No memory diagnostic results were found in the event log.</td><td style="text-align: right;" width="27%">2018-11-23 09:59:04</td></tr><tr><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:04</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>USB Hub</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Device Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">1.1.1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Version</td><td>2.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Device Speed</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">USB 2.0 (High-speed)</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\usbhub3.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.0.10240.16603, 11-24-2015</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||HUB||USB Hub||--><!--||START_TEST||pcdrusb_StatusTest||PASS||--></div><a id="testEventContents_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTest', 'testEventContents_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">USB Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTest"><a id="testTable_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTestPASS', 'testTable_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_USB_0_4____USB_VID_1A40_PID_0101_5_30e1d3ad_0_4__f18a0e88_c30c_11d0_8815_00a0c906bed8_pcdrusb_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:04</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:17</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>USB Test Key 3.1</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Manufacturer</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">PCDoctor</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Device Version</td><td>3.0.1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">2.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Device Speed</td><td>USB 2.0 (High-speed)</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">c:\windows\system32\drivers\usbstor.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td>10.0.10240.16732, 6-21-2006</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||USB||USB Test Key 3.1||--><!--||START_TEST||pcdrusb_StatusTest||PASS||--></div><a id="testEventContents_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest', 'testEventContents_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">USB Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest"><a id="testTable_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS', 'testTable_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_USB_0_4_1____USB_VID_0679_PID_1130_3E0F9AE9E30E__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:17</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:18</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>USB Composite Device</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Device Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">0.0.4</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Version</td><td>2.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Device Speed</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">USB 2.0 (High-speed)</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\usbccgp.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.0.10240.16384, 6-21-2006</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||USBComposite||USB Composite Device||--><!--||START_TEST||pcdrusb_StatusTest||PASS||--></div><a id="testEventContents_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest', 'testEventContents_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">USB Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest"><a id="testTable_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS', 'testTable_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_USB_0_4_3____USB_VID_0C45_PID_6514_6_277ce15b_0_3__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:18</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:20</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Qualcomm Atheros AR3012 Bluetooth 4.0</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Device Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">0.0.1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Version</td><td>1.1.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">USB Device Speed</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">USB 1.1 (Full-speed)</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\bthusb.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.0.1.3, 8-18-2015</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||BlueTooth||Qualcomm Atheros AR3012 Bluetooth 4.0||--><!--||START_TEST||pcdrusb_StatusTest||PASS||--></div><a id="testEventContents_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest', 'testEventContents_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">USB Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTest"><a id="testTable_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS', 'testTable_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_USB_0_4_4____USB_VID_0CF3_PID_3004_6_277ce15b_0_4__a5dcbf10_6530_11d2_901f_00c04fb951ed_pcdrusb_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:20</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:21</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>PCI Subsystem</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PciBus||PCI Subsystem||--><!--||START_TEST||pcdrpci_ConfigTest||PASS||--></div><a id="testEventContents_PCIRootpcdrpci_ConfigTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCIRootpcdrpci_ConfigTest', 'testEventContents_PCIRootpcdrpci_ConfigTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Configuration Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCIRootpcdrpci_ConfigTest"><a id="testTable_PCIRootpcdrpci_ConfigTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCIRootpcdrpci_ConfigTestPASS', 'testTable_PCIRootpcdrpci_ConfigTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCIRootpcdrpci_ConfigTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:21</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:25</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>PCI-to-PCI Bridge</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PCIPCIBridge||PCI-to-PCI Bridge||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTest', 'testEventContents_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTest"><a id="testTable_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTestPASS', 'testTable_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_28_0PCI_VEN_8086_DEV_0F48_SUBSYS_398617AA_REV_0E_3_11583659_0_E0pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:25</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:27</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>PCI-to-PCI Bridge</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PCIPCIBridge||PCI-to-PCI Bridge||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTest', 'testEventContents_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTest"><a id="testTable_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTestPASS', 'testTable_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_28_1PCI_VEN_8086_DEV_0F4A_SUBSYS_398617AA_REV_0E_3_11583659_0_E1pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:27</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:28</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>PCI-to-PCI Bridge</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PCIPCIBridge||PCI-to-PCI Bridge||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTest', 'testEventContents_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTest"><a id="testTable_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTestPASS', 'testTable_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_28_2PCI_VEN_8086_DEV_0F4C_SUBSYS_398617AA_REV_0E_3_11583659_0_E2pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:28</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:29</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>PCI-to-PCI Bridge</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PCIPCIBridge||PCI-to-PCI Bridge||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTest', 'testEventContents_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTest"><a id="testTable_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTestPASS', 'testTable_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_28_3PCI_VEN_8086_DEV_0F4E_SUBSYS_398617AA_REV_0E_3_11583659_0_E3pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:29</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:31</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Realtek PCIE CardReader</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||PCIExpress||Realtek PCIE CardReader||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTest', 'testEventContents_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTest"><a id="testTable_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTestPASS', 'testTable_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_2_0_0PCI_VEN_10EC_DEV_5229_SUBSYS_380017AA_REV_01_4_21373DCE_0_00E1pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:31</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:32</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Realtek PCIe GBE Family Controller</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">MAC Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">1c:39:47:c5:58:37</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">IP Address</td><td>0.0.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Gateway IP Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">0.0.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\rt640x64.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.1.505.2015, 5-5-2015</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||NetworkCard||Realtek PCIe GBE Family Controller||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTest', 'testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTest"><a id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTestPASS', 'testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:32</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:33</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Qualcomm Atheros AR956x Wireless Network Adapter</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">MAC Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">b8:86:87:4e:df:ef</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">IP Address</td><td>192.168.1.119</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Gateway IP Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">192.168.1.1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Current Speed</td><td>72.20 Mbps</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">c:\windows\system32\drivers\athw8x.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td>3.0.2.182, 6-22-2006</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||NetworkCard||Qualcomm Atheros AR956x Wireless Network Adapter||--><!--||START_TEST||pcdrpciexpress_StatusTest||PASS||--></div><a id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTest', 'testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">PCI Express Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTest"><a id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTestPASS', 'testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrpciexpress_StatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:34</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:35</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>ST500LT012-1DG142 ATA Device</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Vendor</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">Seagate</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Model Number</td><td>ST500LT012-1DG142</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Serial Number</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">W3PL09LJ</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Firmware Revision</td><td>0002LVM1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Size</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">465.8 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Marketed Size</td><td>500 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Rotation Rate</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">5400 RPM</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Temperature</td><td>32 C</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Physical Sector Size</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">4 KB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Logical Sector Size</td><td>512 B</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Logical Sector Count</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">976773168</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Supported Standards</td><td>ATA8-ACS<br>ATA/ATAPI-7<br>ATA/ATAPI-6<br>ATA/ATAPI-5</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Specification Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">ATA8-ACS rev 4</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>C:</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">File System</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">NTFS</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Serial Number</td><td>BC0E-C929</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Capacity</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">250.43 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Free Space</td><td>230.95 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Used Space</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">19.48 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr><tr><td><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>D:</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">File System</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">NTFS</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Serial Number</td><td>8AF3-3B0A</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Capacity</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">214.84 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Free Space</td><td>214.72 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Volume Used Space</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">123.56 MB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrsmart2_SMARTStatusTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SMART Status Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTStatusTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:35</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:38</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrsmart2_SMARTThresholdsTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SMART Thresholds Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTThresholdsTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:38</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:41</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_TargetedReadTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Targeted Read Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_TargetedReadTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:41</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 09:59:49</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrsmart2_SMARTShortSelfTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">SMART Short Self Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrsmart2_SMARTShortSelfTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 09:59:49</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:01:24</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_LinearSeekTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Linear Seek Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearSeekTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:01:24</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:02:22</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_RandomSeekTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Random Seek Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_RandomSeekTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:02:22</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:03:23</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_FunnelSeekTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Funnel Seek Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_FunnelSeekTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:03:23</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:04:56</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_LinearReadTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Linear Read Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:04:56</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:05:07</td></tr></tbody></table></span><div><!--||START_DEVICE||HardDrive||ST500LT012-1DG142 ATA Device||--><!--||START_TEST||pcdrharddrive2_LinearReadTest||PASS||--></div><a id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest2_link" style="text-decoration: none;" href="javascript:expand('testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest2', 'testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest2_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Linear Read Test - 2</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTest2"><a id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS2_link" style="text-decoration: none;" href="javascript:expand('testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS2', 'testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS2_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_ATA_0_0____ide_diskst500lt012_1dg142_______________________0002lvm1_5_2d080431_0_0_0_0__53f56307_b6bf_11d0_94f2_00a0c91efb8b_pcdrharddrive2_LinearReadTestPASS2" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:05:07</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:05:19</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Intel(R) HD Graphics</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Location</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">PCI bus 0, device 2, function 0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Interface</td><td>PCI</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Video Card Chip Type</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">Intel(R) HD Graphics</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Video Card Memory</td><td>2.01 GB</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Video Card BIOS</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">Intel Video BIOS</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\igdkmd64.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.18.10.4276, 8-17-2015</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_WireframeShaderRenderingTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Wireframe Shader Rendering Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_WireframeShaderRenderingTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:05:19</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Informative Message</td><td width="25%">Average Frames Per Second 1</td><td style="text-align: right;" width="27%">2018-11-23 10:06:32</td></tr><tr><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:06:33</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_ShaderRenderingTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Shader Rendering Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_ShaderRenderingTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:06:34</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Informative Message</td><td width="25%">Average Frames Per Second 5</td><td style="text-align: right;" width="27%">2018-11-23 10:07:32</td></tr><tr><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:07:33</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_GPUPipelineDataTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">GPU Pipeline Data Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_GPUPipelineDataTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:07:33</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:08:37</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_FixedTLPipelineTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Fixed Transformation and Lighting Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:08:37</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Informative Message</td><td width="25%">Average Frames Per Second 8</td><td style="text-align: right;" width="27%">2018-11-23 10:09:31</td></tr><tr><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:09:31</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_FixedTLPipelineWireframeTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Wireframe Line Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_FixedTLPipelineWireframeTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:09:32</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Informative Message</td><td width="25%">Average Frames Per Second 6</td><td style="text-align: right;" width="27%">2018-11-23 10:10:26</td></tr><tr><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:10:26</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_PrimarySurfaceTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Primary Surface Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_PrimarySurfaceTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:10:27</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:10:39</td></tr></tbody></table></span><div><!--||START_DEVICE||VideoCard||Intel(R) HD Graphics||--><!--||START_TEST||pcdr2d3dvideo_VideoMemoryTest||PASS||--></div><a id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTest', 'testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Video Memory Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTest"><a id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTestPASS', 'testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_0_2_0PCI_VEN_8086_DEV_0F31_SUBSYS_398617AA_REV_0E_3_11583659_0_10pcdr2d3dvideo_VideoMemoryTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:10:39</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:15:37</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Generic PnP Monitor</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Mode</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">1366 x 768 (32-bit) (60 Hz)</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Manufacture Date</td><td>Week 40, Year 2013</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Signal Type</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">Digital</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">EDID Version</td><td>1.4</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||Monitor||Generic PnP Monitor||--><!--||START_TEST||pcdrmonitor_EDIDChecksumTest||PASS||--></div><a id="testEventContents_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTest', 'testEventContents_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">EDID Checksum Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTest"><a id="testTable_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTestPASS', 'testTable_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_DISPLAY_1____DISPLAY1pcdrmonitor_EDIDChecksumTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:15:37</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:15:39</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>CMOS</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Divider Time Base</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">32.77 kHz</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Periodic Interrupt Rate</td><td>976 MICROSECONDS</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||CMOS||CMOS||--><!--||START_TEST||pcdrcmos_ChecksumTest||PASS||--></div><a id="testEventContents_CMOSCMOSpcdrcmos_ChecksumTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CMOSCMOSpcdrcmos_ChecksumTest', 'testEventContents_CMOSCMOSpcdrcmos_ChecksumTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Checksum Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CMOSCMOSpcdrcmos_ChecksumTest"><a id="testTable_CMOSCMOSpcdrcmos_ChecksumTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CMOSCMOSpcdrcmos_ChecksumTestPASS', 'testTable_CMOSCMOSpcdrcmos_ChecksumTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CMOSCMOSpcdrcmos_ChecksumTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:15:39</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:15:41</td></tr></tbody></table></span><div><!--||START_DEVICE||CMOS||CMOS||--><!--||START_TEST||pcdrcmos_PatternTest||PASS||--></div><a id="testEventContents_CMOSCMOSpcdrcmos_PatternTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_CMOSCMOSpcdrcmos_PatternTest', 'testEventContents_CMOSCMOSpcdrcmos_PatternTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Pattern Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_CMOSCMOSpcdrcmos_PatternTest"><a id="testTable_CMOSCMOSpcdrcmos_PatternTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_CMOSCMOSpcdrcmos_PatternTestPASS', 'testTable_CMOSCMOSpcdrcmos_PatternTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_CMOSCMOSpcdrcmos_PatternTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:15:41</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:15:52</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>System Board</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Manufacturer</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">LENOVO</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Product</td><td>INVALID</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||SystemBoard||System Board||--><!--||START_TEST||pcdrsystemboard_RTCAccuracyTest||PASS||--></div><a id="testEventContents_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTest', 'testEventContents_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">RTC Accuracy Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTest"><a id="testTable_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTestPASS', 'testTable_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_SYSTEMBOARDSystem_Boardpcdrsystemboard_RTCAccuracyTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:15:52</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:15:55</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Realtek PCIe GBE Family Controller</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">MAC Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">1c:39:47:c5:58:37</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">IP Address</td><td>0.0.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Gateway IP Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">0.0.0.0</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td>c:\windows\system32\drivers\rt640x64.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">10.1.505.2015, 5-5-2015</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||NetworkCard||Realtek PCIe GBE Family Controller||--><!--||START_TEST||pcdrnetwork_NetworkLinkTest||PASS||--></div><a id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTest', 'testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Network Link Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTest"><a id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTestPASS', 'testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkLinkTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:15:55</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:16:09</td></tr></tbody></table></span><div><!--||START_DEVICE||NetworkCard||Realtek PCIe GBE Family Controller||--><!--||START_TEST||pcdrnetwork_NetworkTCPIPInternalLoopbackTest||PASS||--></div><a id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTest', 'testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">TCP/IP Internal Loopback Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTest"><a id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS', 'testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_3_0_0PCI_VEN_10EC_DEV_8168_SUBSYS_380C17AA_REV_10_4_119FDD6E_0_00E2pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:16:09</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:16:22</td></tr></tbody></table></span></span><span><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable" cellspacing="0"><tbody><tr><th>Qualcomm Atheros AR956x Wireless Network Adapter</th></tr></tbody></table><span style="width: 100%;"><table class="diags_deviceInfoDialog_detailedSysinfoPane_deviceTable"><tbody><tr><td><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"><tbody><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">MAC Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">b8:86:87:4e:df:ef</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">IP Address</td><td>192.168.1.119</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Gateway IP Address</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">192.168.1.1</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Current Speed</td><td>72.20 Mbps</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver</td><td class=" diags_deviceInfoDialog_detailedSysinfoPane_altRow">c:\windows\system32\drivers\athw8x.sys</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr><tr><td class=" diags_deviceInfoDialog_detailedSysinfoPane_propertyKey">Driver Version</td><td>3.0.2.182, 6-22-2006</td></tr><tr><td colspan="2"><table class="diags_deviceInfoDialog_detailedSysinfoPane_propertyTable" cellspacing="0"></table></td></tr></tbody></table></td></tr></tbody></table></span></span><span><div><!--||START_DEVICE||NetworkCard||Qualcomm Atheros AR956x Wireless Network Adapter||--><!--||START_TEST||pcdrnetwork_NetworkLinkTest||PASS||--></div><a id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTest', 'testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">Network Link Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTest"><a id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTestPASS', 'testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkLinkTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:16:22</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:16:34</td></tr></tbody></table></span><div><!--||START_DEVICE||NetworkCard||Qualcomm Atheros AR956x Wireless Network Adapter||--><!--||START_TEST||pcdrnetwork_NetworkTCPIPInternalLoopbackTest||PASS||--></div><a id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTest_link" style="text-decoration: none;" href="javascript:expand('testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTest', 'testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTest_link');">+</a><table class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><th class="PASS" width="48%">TCP/IP Internal Loopback Test</th><th class="PASS" width="25%">Passed</th><th class="PASS" width="27%">Pass Count: 1</th></tr></tbody></table><span style="display: none;" id="testEventContents_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTest"><a id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS_link" style="text-decoration: none;" href="javascript:expand('testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS', 'testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS_link');">-</a><span>Passed</span><br><table style="display: block;" id="testTable_PCI_4_0_0PCI_VEN_168C_DEV_0036_SUBSYS_402617AA_REV_01_4_39924CF9_0_00E3pcdrnetwork_NetworkTCPIPInternalLoopbackTestPASS" class="diags_deviceInfoDialog_detailedSysinfoPane_testTable" cellspacing="0"><tbody><tr><td width="48%">Test Started</td><td width="25%"></td><td style="text-align: right;" width="27%">2018-11-23 10:16:35</td></tr><tr class="diags_deviceInfoDialog_detailedSysinfoPane_altRow"><td width="48%">Test Finished</td><td class="PASS" width="25%">Passed</td><td style="text-align: right;" width="27%">2018-11-23 10:16:48</td></tr></tbody></table></span></span></div>
+					<div id="report_outputPreviewinfoTestinfoClearDiv" style="clear: both;"><hr></div>
+					<div style="display: none;" id="report_outputPreviewinfoDiffinfoHeader">Snapshots</div>
+					<div style="display: none;" id="report_outputPreviewinfoDiffinfo"></div>
+					<div id="report_outputPreviewinfoDiffinfoClearDiv" style="clear: both; display: none;"><hr></div>
+				
+</div>
+
+      <br />
+      <p>PC-Doctor Service Center 11 - 11.0.6849.448</p><p>2018-11-23 10:19:23</p>
+    </div>
+  </body>
+</html>
